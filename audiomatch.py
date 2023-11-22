@@ -16,11 +16,13 @@ Sections:
 '''
 
 # You may need to download PyAudio and SciPy, all else is bundled with Python
-import ttk
-import Tkinter as tk
-import tkFileDialog
+#import ttk
+import tkinter as tk
+import tkinter.filedialog as tkFileDialog
+#import tkinter, tkconstants, tkFileDialog
+from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 import matplotlib.pyplot as plt
-from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2TkAgg
+# from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2TkAgg
 from matplotlib.figure import Figure
 import numpy as np
 import math
@@ -28,7 +30,6 @@ import struct
 import wave
 from sys import stdout
 import pyaudio
-
 
 # ======================== Section 1 ========================
 # TK GUI
@@ -154,9 +155,11 @@ def buttonAnalyzeCallback():
 	
 	# Fingerprint training files and column stack them
 	fingerprint_array = np.column_stack(getTrainingFileFingerprints())
+	# print(fingerprint_array)
 
 	# Run realtime analysis
 	for i in range(repeat_analysis_times):
+		print(i)
 		fft_frequencies_hz, fingerprint_realtime = realtimeRecordAndFingerprint()
 		# sound_profile, Residuals, Rank, S = np.linalg.lstsq(fingerprint_array, fingerprint_realtime)
 		sound_profile = np.linalg.lstsq(fingerprint_array, fingerprint_realtime)[0]
